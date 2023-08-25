@@ -25,6 +25,7 @@ class Appointments_model extends EA_Model {
         parent::__construct();
         $this->load->helper('data_validation');
         $this->load->helper('string');
+        date_default_timezone_set('America/Santiago');
     }
 
     /**
@@ -602,4 +603,28 @@ class Appointments_model extends EA_Model {
             ->row()
             ->attendants_number;
     }
+
+    public function has_appointment($rut){
+
+
+        return (int)$this->db 
+            ->select('count(*) AS active_appointment')
+            ->from('appointments')
+            ->join('users','users.id = appointments.id_users_customer','inner')
+            ->where('users.rut',$rut)
+            ->where('appointments.end_datetime > CURDATE()')
+            ->get()->row()->active_appointment;
+    }
+
+    public function get_appointments_reminder(){
+
+       return $this->db
+            ->query('
+                select * from ea_appointments 
+                where 
+                DATE(DATE_SUB(start_datetime, INTERVAL 1 DAY)) = CURDATE()
+            ')->result();
+            
+    }
 }
+

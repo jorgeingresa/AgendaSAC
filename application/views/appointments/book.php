@@ -19,6 +19,7 @@
 
     <script src="<?= asset_url('assets/ext/fontawesome/js/fontawesome.min.js') ?>"></script>
     <script src="<?= asset_url('assets/ext/fontawesome/js/solid.min.js') ?>"></script>
+    <script src="<?= asset_url('assets/ext/inputmask/inputmask.js') ?>"></script>
 </head>
 
 <body>
@@ -32,22 +33,22 @@
                 <span id="company-name"><img src="<?= asset_url('assets/img/logo_ingresa.png') ?>" alt=""></span>
 
                 <div id="steps">
-                    <div id="step-1" class="book-step active-step"
+                    <!-- <div id="step-1" class="book-step active-step"
                          data-tippy-content="<?= lang('service_and_provider') ?>">
                         <strong>1</strong>
-                    </div>
+                    </div> -->
 
-                    <div id="step-2" class="book-step" data-toggle="tooltip"
+                    <div id="step-2" class="book-step active-step" data-toggle="tooltip"
                          data-tippy-content="<?= lang('appointment_date_and_time') ?>">
-                        <strong>2</strong>
+                        <strong>1</strong>
                     </div>
                     <div id="step-3" class="book-step" data-toggle="tooltip"
                          data-tippy-content="<?= lang('customer_information') ?>">
-                        <strong>3</strong>
+                        <strong>2</strong>
                     </div>
                     <div id="step-4" class="book-step" data-toggle="tooltip"
                          data-tippy-content="<?= lang('appointment_confirmation') ?>">
-                        <strong>4</strong>
+                        <strong>3</strong>
                     </div>
                 </div>
             </div>
@@ -71,7 +72,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="booking-header-bar row">
+                <!-- <div class="booking-header-bar row">
                     <div class="col-12 col-md-10">
                         <small><?= lang('delete_personal_information_hint') ?></small>
                     </div>
@@ -79,7 +80,7 @@
                         <button id="delete-personal-information"
                                 class="btn btn-danger btn-sm"><?= lang('delete') ?></button>
                     </div>
-                </div>
+                </div> -->
             <?php endif; ?>
 
             <?php if (isset($exceptions)): ?>
@@ -95,7 +96,7 @@
 
             <!-- SELECT SERVICE AND PROVIDER -->
 
-            <div id="wizard-frame-1" class="wizard-frame">
+            <div id="wizard-frame-1" class="wizard-frame " style="display:none;">
                 <div class="frame-container">
                     <h2 class="frame-title"><?= lang('service_and_provider') ?></h2>
 
@@ -201,7 +202,7 @@
 
             <!-- SELECT APPOINTMENT DATE -->
 
-            <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
+            <div id="wizard-frame-2" class="wizard-frame" >
                 <div class="frame-container">
 
                     <h2 class="frame-title"><?= lang('appointment_date_and_time') ?></h2>
@@ -215,7 +216,7 @@
                             <div id="select-time">
                                 <div class="form-group">
                                     <!-- <label for="select-timezone"><?= lang('timezone') ?></label> -->
-                                   <?= render_timezone_dropdown('id="select-timezone" class="form-control d-none" value="UTC"'); ?>
+                                   <?= render_timezone_dropdown('id="select-timezone" class="form-control d-none"  value="UTC"'); ?>
                                 </div>
 
                                 <div id="available-hours"></div>
@@ -225,11 +226,7 @@
                 </div>
 
                 <div class="command-buttons">
-                    <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
-                            data-step_index="2">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        <?= lang('back') ?>
-                    </button>
+                    <span>&nbsp;</span>
                     <button type="button" id="button-next-2" class="btn button-next btn-dark"
                             data-step_index="2">
                         <?= lang('next') ?>
@@ -244,7 +241,7 @@
                 <div class="frame-container">
 
                     <h2 class="frame-title"><?= lang('customer_information') ?></h2>
-
+                    <div id="form-message" class="alert" ></div>
                     <div class="row frame-content">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -291,11 +288,19 @@
                                 </label>
                                 <input type="text" id="city" class="form-control" maxlength="120"/>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="zip-code" class="control-label">
                                     <?= lang('zip_code') ?>
                                 </label>
                                 <input type="text" id="zip-code" class="form-control" maxlength="120"/>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="rut" class="control-label">
+                                    Rut
+                                </label>
+                                <span class="text-danger">*</span>
+                                <input type="text" id="rut" class="form-control required" maxlength="12"/>
+                                <input type="text" id="has_appointment" hidden>
                             </div>
                             <div class="form-group">
                                 <label for="notes" class="control-label">
@@ -397,9 +402,7 @@
             <div id="frame-footer">
                 <small>
                     <span class="footer-powered-by">
-                        Powered By
 
-                        <a href="https://easyappointments.org" target="_blank">Easy!Appointments</a>
                     </span>
 
                     <span class="footer-options">
@@ -470,6 +473,17 @@
     $(function () {
         FrontendBook.initialize(true, GlobalVariables.manageMode);
         GeneralFunctions.enableLanguageSelection($('#select-language'));
+
+        var rut = document.getElementById("rut");     
+
+        var im = new Inputmask({
+            mask: '9{1,2}9{3}9{3}-(9|k|K)',
+            casing: 'upper',
+            clearIncomplete: true,
+            numericInput: true,
+            positionCaretOnClick: 'end'
+        });
+        im.mask(rut);
     });
 </script>
 

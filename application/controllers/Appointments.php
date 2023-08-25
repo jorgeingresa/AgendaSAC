@@ -522,6 +522,7 @@ class Appointments extends EA_Controller {
             $manage_mode = filter_var($post_data['manage_mode'], FILTER_VALIDATE_BOOLEAN);
             $appointment = $post_data['appointment'];
             $customer = $post_data['customer'];
+            
 
             // Check appointment availability before registering it to the database.
             $appointment['id_users_provider'] = $this->check_datetime_availability();
@@ -774,6 +775,29 @@ class Appointments extends EA_Controller {
         }
 
         return $provider_list;
+    }
+
+    public function ajax_get_has_appointment(){        
+
+        try {
+            $rut = $this->input->get('rut');
+            $results = $this->appointments_model->has_appointment($rut);
+        } catch (Exception $exception) {
+            $this->output->set_status_header(500);
+
+            $response = [
+                'message' => $exception->getMessage(),
+                'trace' => config('debug') ? $exception->getTrace() : []
+            ];
+        }
+
+        $response = [
+            'result' => $results,
+            'rut' => $rut
+        ];
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 
 
