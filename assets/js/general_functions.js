@@ -231,6 +231,90 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         return re.test(email);
     };
 
+    /**
+     * Validate Rut Format
+     *
+     * This method validates an chilean rut format. If the Rut is not valid result FALSE
+     *
+     *
+     * @param {String} rut The complete Rut to be checked.
+
+     * @return {Boolean} Returns the validation result.
+     */
+    exports.validateRut = function(rutCompleto){
+        rutCompleto = rutCompleto.replace("‐","-");
+		if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+			return false;
+		var tmp 	= rutCompleto.split('-');
+		var digv	= tmp[1]; 
+		var rut 	= tmp[0];
+		if ( digv == 'K' ) digv = 'k' ;
+		
+		return (this.getDv(rut) == digv );
+    };
+
+    exports.getDv = function(T){
+        var M=0,S=1;
+		for(;T;T=Math.floor(T/10))
+			S=(S+T%10*(9-M++%6))%11;
+		return S?S-1:'k';
+    };
+
+    /**
+     * Validate if rut entered has an appointment 
+     *
+     * This method validates if the rut entered has an appointment previously. If has appointment
+     * return FALSE.
+     *
+     *
+     * @param {String} rut The complete Rut to be consulted.
+
+     * @return {Boolean} Returns the validation result.
+     */
+
+    exports.hasAppointment = function(rut){
+        rut     = rut.replace("‐","-");
+        var arrRut  = rut.split('-');
+        var rutNoDv = arrRut[0]; 
+
+        var url = GlobalVariables.baseUrl + '/index.php/appointments/ajax_get_has_appointment';
+        var data = {
+            rut: rutNoDv
+        };
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: data,
+            dataType: 'json'
+        })
+            .done(function (response) {
+                $('#has_appointment').val(response.result);
+            });
+
+    }
+
+    // exports.hasAppointment = async function myAjax(param) {
+    //     let result
+    //     rut     = rut.replace("‐","-");
+    //     var arrRut  = rut.split('-');
+    //     var rutNoDv = arrRut[0]; 
+
+    //     var url = GlobalVariables.baseUrl + '/index.php/appointments/ajax_get_has_appointment';
+    //     var data = {
+    //         rut: rutNoDv
+    //     };
+    //     try {
+    //       result = await $.ajax({
+    //         url: url,
+    //         type: 'GET',
+    //         data: data,
+    //       })
+    //       return result
+    //     } catch (error) {
+    //       console.error(error)
+    //     }
+    //   }
 
     /**
      * Makes the first letter of the string upper case.

@@ -198,6 +198,10 @@ window.FrontendBook = window.FrontendBook || {};
             FrontendBook.updateConfirmFrame();
         });
 
+        $('#rut').on('keyup',function(){
+            GeneralFunctions.hasAppointment($('#rut').val());
+        })
+
         /**
          * Event: Selected Provider "Changed"
          *
@@ -486,8 +490,19 @@ window.FrontendBook = window.FrontendBook || {};
                 $('#email').parents('.form-group').addClass('has-error');
                 throw new Error(EALang.invalid_email);
             }
+            //Validate Rut Format
+            if(!GeneralFunctions.validateRut($('#rut').val())){
+                $('#rut').parents('.form-group').addClass('has-error'); 
+                throw new Error(EALang.invalid_rut);
+            }
 
-            return true;
+            if($('#has_appointment').val()>0){
+                $('#rut').parents('.form-group').addClass('has-error'); 
+                throw new Error(EALang.invalid_appointment_rut);
+            }
+
+            return true
+           
         } catch (error) {
             $('#form-message').text(error.message);
             return false;
@@ -531,21 +546,21 @@ window.FrontendBook = window.FrontendBook || {};
                 }),
                 $('<p/>', {
                     'html': [
-                        $('<span/>', {
-                            'text': EALang.service + ': ' + $('#select-service option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
-                        }),
+                        // $('<span/>', {
+                        //     'text': EALang.service + ': ' + $('#select-service option:selected').text()
+                        // }),
+                        // $('<br/>'),
+                        // $('<span/>', {
+                        //     'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
+                        // }),
                         $('<br/>'),
                         $('<span/>', {
                             'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
                         }),
                         $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
-                        }),
+                        // $('<span/>', {
+                        //     'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
+                        // }),
                         $('<br/>'),
                         $('<span/>', {
                             'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
@@ -611,6 +626,10 @@ window.FrontendBook = window.FrontendBook || {};
         // Update appointment form data for submission to server when the user confirms the appointment.
         var data = {};
 
+        var rut     = $('#rut').val().replace("‐","-");
+        var arrRut  = rut.split('-');
+        var rutNoDv = arrRut[0]; 
+        var dv      = arrRut[1]; 
         data.customer = {
             last_name: $('#last-name').val(),
             first_name: $('#first-name').val(),
@@ -619,7 +638,10 @@ window.FrontendBook = window.FrontendBook || {};
             address: $('#address').val(),
             city: $('#city').val(),
             zip_code: $('#zip-code').val(),
-            timezone: $('#select-timezone').val()
+            timezone: $('#select-timezone').val(),
+            rut: rutNoDv,
+            dv : dv
+
         };
 
         data.appointment = {
