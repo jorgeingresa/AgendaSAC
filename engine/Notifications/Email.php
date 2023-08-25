@@ -93,7 +93,8 @@ class Email {
         Url $appointment_link_address,
         EmailAddress $recipient_email,
         Text $ics_stream,
-        $timezone = NULL
+        $timezone = NULL,
+        $reminder = FALSE
     )
     {
         $timezones = $this->CI->timezones->to_array();
@@ -136,7 +137,8 @@ class Email {
             $appointment_end->setTimezone($appointment_timezone);
         }
 
-        $html = $this->CI->load->view('emails/appointment_details', [
+        $email_view = $reminder ? 'emails/appointment_reminder' : 'emails/appointment_details';
+        $html = $this->CI->load->view($email_view, [
             'email_title' => $title->get(),
             'email_message' => $message->get(),
             'appointment_service' => $service['name'],

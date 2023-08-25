@@ -57,7 +57,7 @@ class Notifications {
      * @param array $settings Required settings for the notification content.
      * @param bool|false $manage_mode
      */
-    public function notify_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode = FALSE)
+    public function notify_appointment_saved($appointment, $service, $provider, $customer, $settings, $manage_mode = FALSE,$reminder = FALSE)
     {
         try
         {
@@ -72,7 +72,7 @@ class Notifications {
             }
             else
             {
-                $customer_title = new Text(lang('appointment_booked'));
+                $customer_title = $reminder ?new Text(lang('appointment_reminder_title')):new Text(lang('appointment_booked'));
                 $customer_message = new Text(lang('thank_you_for_appointment'));
                 $provider_title = new Text(lang('appointment_added_to_your_plan'));
                 $provider_message = new Text(lang('appointment_link_description'));
@@ -91,14 +91,14 @@ class Notifications {
             {
                 $email->send_appointment_details($appointment, $provider,
                     $service, $customer, $settings, $customer_title,
-                    $customer_message, $customer_link, new Email($customer['email']), new Text($ics_stream), $customer['timezone']);
+                    $customer_message, $customer_link, new Email($customer['email']), new Text($ics_stream), $customer['timezone'],$reminder);
             }
 
             $send_provider = filter_var(
                 $this->CI->providers_model->get_setting('notifications', $provider['id']),
                 FILTER_VALIDATE_BOOLEAN);
 
-            if ($send_provider === TRUE)
+            if ($send_provider === TRUE && $reminder === FALSE)
             {
                 $email->send_appointment_details($appointment, $provider,
                     $service, $customer, $settings, $provider_title,
@@ -110,7 +110,7 @@ class Notifications {
 
             foreach ($admins as $admin)
             {
-                if ($admin['settings']['notifications'] === '0')
+                if ($admin['settings']['notifications'] === '0' || $reminder === TRUE)
                 {
                     continue;
                 }
