@@ -130,7 +130,6 @@
 </div>
 
 <footer>
-    Powered by <a href="https://easyappointments.org">Easy!Appointments</a>
 </footer>
 
 <script>
