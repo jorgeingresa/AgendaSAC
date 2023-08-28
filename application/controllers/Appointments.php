@@ -174,6 +174,7 @@ class Appointments extends EA_Controller {
 
                 $customer = $this->customers_model->get_row($appointment['id_users_customer']);
 
+
                 $customer = [
                     'id' => $customer['id'],
                     'first_name' => $customer['first_name'],
@@ -183,7 +184,9 @@ class Appointments extends EA_Controller {
                     'timezone' => $customer['timezone'],
                     'address' => $customer['address'],
                     'city' => $customer['city'],
-                    'zip_code' => $customer['zip_code']
+                    'zip_code' => $customer['zip_code'],
+                    'rut' =>$customer['rut'],
+                    'dv'=>$customer['dv'],
                 ];
 
                 $customer_token = md5(uniqid(mt_rand(), TRUE));
@@ -224,6 +227,7 @@ class Appointments extends EA_Controller {
                 'privacy_policy_content' => $privacy_policy_content,
                 'timezones' => $timezones,
                 'display_any_provider' => $display_any_provider,
+                'prod' =>Config::ENV_PROD
             ];
         }
         catch (Exception $exception)

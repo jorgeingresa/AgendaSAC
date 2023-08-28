@@ -198,8 +198,12 @@ window.FrontendBook = window.FrontendBook || {};
             FrontendBook.updateConfirmFrame();
         });
 
+        
         $('#rut').on('keyup',function(){
-            GeneralFunctions.hasAppointment($('#rut').val());
+            if(!$("#manage_mode").val()){
+                GeneralFunctions.hasAppointment($('#rut').val());
+            }
+            
         })
 
         /**
@@ -364,7 +368,7 @@ window.FrontendBook = window.FrontendBook || {};
             $('#cancel-appointment').on('click', function (event) {
                 var buttons = [
                     {
-                        text: EALang.cancel,
+                        text: EALang.close,
                         click: function () {
                             $('#message-box').dialog('close');
                         }
@@ -401,7 +405,7 @@ window.FrontendBook = window.FrontendBook || {};
             $('#delete-personal-information').on('click', function () {
                 var buttons = [
                     {
-                        text: EALang.cancel,
+                        text: EALang.close,
                         click: function () {
                             $('#message-box').dialog('close');
                         }
@@ -541,11 +545,17 @@ window.FrontendBook = window.FrontendBook || {};
 
         $('<div/>', {
             'html': [
-                $('<h4/>', {
-                    'text': EALang.appointment
-                }),
                 $('<p/>', {
                     'html': [
+                        $('<span/>', {
+                            'text': EALang.place + ': ',
+                            'css': {
+                                'fontWeight': 'bold'
+                            }
+                        }), 
+                        $('<span/>', {
+                            'text':  EALang.ingresa_adress                            
+                        }),
                         // $('<span/>', {
                         //     'text': EALang.service + ': ' + $('#select-service option:selected').text()
                         // }),
@@ -555,7 +565,13 @@ window.FrontendBook = window.FrontendBook || {};
                         // }),
                         $('<br/>'),
                         $('<span/>', {
-                            'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
+                            'text': EALang.start_datetime + ': ',
+                            'css': {
+                                'fontWeight': 'bold'
+                            }
+                        }),
+                        $('<span/>', {
+                            'text': selectedDate + ' ' + $('.selected-hour').text()
                         }),
                         $('<br/>'),
                         // $('<span/>', {
@@ -588,12 +604,12 @@ window.FrontendBook = window.FrontendBook || {};
         $('<div/>', {
             'html': [
                 $('<h4/>)', {
-                    'text': EALang.customer
+                    'text': EALang.customer_data
                 }),
                 $('<p/>', {
                     'html': [
                         $('<span/>', {
-                            'text': EALang.customer + ': ' + firstName + ' ' + lastName
+                            'text': 'Nombre' + ': ' + firstName + ' ' + lastName
                         }),
                         $('<br/>'),
                         $('<span/>', {
@@ -604,18 +620,7 @@ window.FrontendBook = window.FrontendBook || {};
                             'text': EALang.email + ': ' + email
                         }),
                         $('<br/>'),
-                        $('<span/>', {
-                            'text': address ? EALang.address + ': ' + address : ''
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': city ? EALang.city + ': ' + city : ''
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': zipCode ? EALang.zip_code + ': ' + zipCode : ''
-                        }),
-                        $('<br/>'),
+                       
                     ]
                 })
             ]
@@ -722,6 +727,7 @@ window.FrontendBook = window.FrontendBook || {};
             $('#address').val(customer.address);
             $('#city').val(customer.city);
             $('#zip-code').val(customer.zip_code);
+            $('#rut').val(customer.rut+customer.dv);
             if (customer.timezone) {
                 $('#select-timezone').val(customer.timezone)
             }

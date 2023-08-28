@@ -97,6 +97,7 @@
             <!-- SELECT SERVICE AND PROVIDER -->
 
             <div id="wizard-frame-1" class="wizard-frame " style="display:none;">
+            <input type="text" id="manage_mode" value="<?= $manage_mode ?>" hidden>
                 <div class="frame-container">
                     <h2 class="frame-title"><?= lang('service_and_provider') ?></h2>
 
@@ -206,6 +207,7 @@
                 <div class="frame-container">
 
                     <h2 class="frame-title"><?= lang('appointment_date_and_time') ?></h2>
+                    <h3 style="font-size: 1rem; font-weight: 400;" class="frame-title"><?= lang('city_user_reminder_text') ?></h3>
 
                     <div class="row frame-content">
                         <div class="col-12 col-md-6">
@@ -245,11 +247,12 @@
                     <div class="row frame-content">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="first-name" class="control-label">
-                                    <?= lang('first_name') ?>
-                                    <span class="text-danger">*</span>
+                                <label for="rut" class="control-label">
+                                    Rut
                                 </label>
-                                <input type="text" id="first-name" class="required form-control" maxlength="100"/>
+                                <span class="text-danger">*</span>
+                                <input type="text" id="rut" class="form-control required" maxlength="12" <?php echo $manage_mode ? "disabled" :"" ;?>/>
+                                <input type="text" id="has_appointment" hidden>
                             </div>
                             <div class="form-group">
                                 <label for="last-name" class="control-label">
@@ -257,13 +260,14 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" id="last-name" class="required form-control" maxlength="120"/>
-                            </div>
+                            </div>                         
+                          
+                            
                             <div class="form-group">
-                                <label for="email" class="control-label">
-                                    <?= lang('email') ?>
-                                    <span class="text-danger">*</span>
+                                <label for="city" class="control-label">
+                                    <?= lang('city') ?>
                                 </label>
-                                <input type="text" id="email" class="required form-control" maxlength="120"/>
+                                <input type="text" id="city" class="form-control" maxlength="120"/>
                             </div>
                             <div class="form-group">
                                 <label for="phone-number" class="control-label">
@@ -277,17 +281,19 @@
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
+                                <label for="first-name" class="control-label">
+                                    <?= lang('first_name') ?>
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="first-name" class="required form-control" maxlength="100"/>
+                            </div>
+                            <div class="form-group">
                                 <label for="address" class="control-label">
                                     <?= lang('address') ?>
                                 </label>
                                 <input type="text" id="address" class="form-control" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="city" class="control-label">
-                                    <?= lang('city') ?>
-                                </label>
-                                <input type="text" id="city" class="form-control" maxlength="120"/>
-                            </div>
+                            </div>                       
+                            
                             <!-- <div class="form-group">
                                 <label for="zip-code" class="control-label">
                                     <?= lang('zip_code') ?>
@@ -295,12 +301,11 @@
                                 <input type="text" id="zip-code" class="form-control" maxlength="120"/>
                             </div> -->
                             <div class="form-group">
-                                <label for="rut" class="control-label">
-                                    Rut
+                                <label for="email" class="control-label">
+                                    <?= lang('email') ?>
+                                    <span class="text-danger">*</span>
                                 </label>
-                                <span class="text-danger">*</span>
-                                <input type="text" id="rut" class="form-control required" maxlength="12"/>
-                                <input type="text" id="has_appointment" hidden>
+                                <input type="text" id="email" class="required form-control" maxlength="120"/>
                             </div>
                             <div class="form-group">
                                 <label for="notes" class="control-label">
@@ -357,11 +362,11 @@
             <!-- APPOINTMENT DATA CONFIRMATION -->
 
             <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
-                <div class="frame-container">
+                <div class="frame-container" style="padding-left: 3rem;">
                     <h2 class="frame-title"><?= lang('appointment_confirmation') ?></h2>
-                    <div class="row frame-content">
-                        <div id="appointment-details" class="col-12 col-md-6"></div>
-                        <div id="customer-details" class="col-12 col-md-6"></div>
+                    <div class="frame-content">
+                        <div id="appointment-details" class="col-12 col-md-12"></div>
+                        <div id="customer-details" class="col-12 col-md-12"></div>
                     </div>
                     <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
                         <div class="row frame-content">
@@ -398,7 +403,7 @@
             </div>
 
             <!-- FRAME FOOTER -->
-
+             <?php if(!$prod): ?>           
             <div id="frame-footer">
                 <small>
                     <span class="footer-powered-by">
@@ -418,6 +423,7 @@
                     </span>
                 </small>
             </div>
+            <?php endif;?>
         </div>
     </div>
 </div>
