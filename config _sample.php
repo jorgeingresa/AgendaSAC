@@ -59,6 +59,9 @@ class Config {
     const GOOGLE_CLIENT_ID      = '';
     const GOOGLE_CLIENT_SECRET  = '';
     const GOOGLE_API_KEY        = '';
+
+    //ENV - IF PRODUCTION = TRUE
+    const ENV_PROD = FALSE;
 }
 
 /* End of file config.php */
