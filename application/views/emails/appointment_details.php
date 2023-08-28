@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title><?= lang('appointment_details_title') ?> </title>
+    <title>Su cita ha sido agendada exitosamente </title>
 </head>
 <body style="font: 13px arial, helvetica, tahoma;">
 <div class="email-container" style="width: 650px; border: 1px solid #eee;">
@@ -11,8 +11,9 @@
     </div>
 
     <div id="content" style="padding: 10px 15px;">
-        <h2><?= $email_title ?></h2>
-        <p><?= $email_message ?></p>
+        <h2>Su atención presencial en las oficinas de Comisión Ingresa, ha sido agendada exitosamente.</h2>
+        A continuación, encontrará los detalles de su cita:
+        <!-- <p><?= $email_message ?></p> -->
 
         <h2><?= lang('appointment_details_title') ?></h2>
         <table id="appointment-details">
@@ -25,13 +26,26 @@
                 <td style="padding: 3px;"><?= $appointment_provider ?></td>
             </tr> -->
             <tr>
-                <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('start') ?></td>
-                <td style="padding: 3px;"><?= $appointment_start_date ?></td>
+                <td class="label" style="padding: 3px;font-weight: bold;">Fecha</td>
+                <td style="padding: 3px;"><?= substr($appointment_start_date,0,11) ?></td>
             </tr>
             <tr>
+                <td class="label" style="padding: 3px;font-weight: bold;">Horario</td>
+                <td style="padding: 3px;"><?= substr($appointment_start_date,-8,8) ?></td>
+            </tr>
+            <tr>
+                <td class="label" style="padding: 3px;font-weight: bold;">Lugar</td>
+                <td style="padding: 3px;">Luis Thayer Ojeda 0180, Piso 3, Oficina 306, Providencia
+(Santiago).</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="label mt-4" style="padding:3px"><b>¡IMPORTANTE!</b> Para ser atendido/a, debe llegar con 15 minutos de
+anticipación y presentar tu cédula de identidad.</td>
+            </tr>
+            <!-- <tr>
                 <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('end') ?></td>
                 <td style="padding: 3px;"><?= $appointment_end_date ?></td>
-            </tr>
+            </tr> -->
             <!-- <tr>
                 <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('timezone') ?></td>
                 <td style="padding: 3px;"><?= $appointment_timezone ?></td>
@@ -51,10 +65,6 @@
             <tr>
                 <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('phone_number') ?></td>
                 <td style="padding: 3px;"><?= $customer_phone ?></td>
-            </tr>
-            <tr>
-                <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('address') ?></td>
-                <td style="padding: 3px;"><?= $customer_address ?></td>
             </tr>
         </table>
 
