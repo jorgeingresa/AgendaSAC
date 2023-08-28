@@ -4,7 +4,7 @@
 // Example: $config['smtp_host'] = 'smtp.gmail.com';
 // @link https://codeigniter.com/user_guide/libraries/email.html
 
-$config['useragent'] = 'INGRESA';
+$config['useragent'] = 'Comisión Ingresa';
 $config['protocol'] = 'smtp'; // or 'smtp'
 $config['mailtype'] = 'html'; // or 'text'
 $config['smtp_debug'] = '0'; // or '1'
