@@ -66,6 +66,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             manage_mode: FrontendBook.manageMode,
             appointment_id: appointmentId
         };
+        
 
         $.post(url, data)
             .done(function (response) {

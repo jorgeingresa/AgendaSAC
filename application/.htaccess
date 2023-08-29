@@ -1,1 +1,7 @@
-Deny from all
+Header set Content-Security-Policy "frame-ancestors https://atencionpublico2-dev.ingresa.cl/"
+<IfModule mod_headers.c>
+    # Permitir orígenes cruzados para todos
+    Header set Access-Control-Allow-Origin "*"
+
+   
+</IfModule>
