@@ -368,6 +368,7 @@ $config['cookie_prefix'] = "";
 $config['cookie_domain'] = "";
 $config['cookie_path'] = "/";
 $config['cookie_secure'] = strpos($config['base_url'], 'https') !== FALSE;
+$config['cookie_samesite'] = 'None';
 
 /*
 |--------------------------------------------------------------------------
@@ -392,10 +393,10 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = TRUE;
+$config['csrf_protection'] = FALSE;
 $config['csrf_token_name'] = 'csrfToken';
 $config['csrf_cookie_name'] = 'csrfCookie';
-$config['csrf_expire'] = 7200;
+$config['csrf_expire']  = 7200;
 $config['csrf_exclude_uris'] = ['api/v1/.*'];
 
 /*
