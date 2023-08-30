@@ -44,7 +44,7 @@
         "google/apiclient": "^2.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
+        "roave/security-advisories": "*",
         "phpunit/phpunit": "^9"
     },
     "scripts": {
