@@ -32,7 +32,6 @@
         }
     },
     "require": {
-        "jorgeingresa/agendasac": "^2.0",
         "php": ">=7.3",
         "ext-curl": "*",
         "ext-json": "*",
