@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="label mt-4" style="padding:3px"><b>¡IMPORTANTE!</b> Para ser atendido/a, debe llegar con 15 minutos de
-anticipación y presentar tu cédula de identidad.</td>
+anticipación y presentar su cédula de identidad.</td>
             </tr>
             <!-- <tr>
                 <td class="label" style="padding: 3px;font-weight: bold;"><?= lang('end') ?></td>
