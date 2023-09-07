@@ -248,7 +248,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="rut" class="control-label">
-                                    Rut
+                                    RUT
                                 </label>
                                 <span class="text-danger">*</span>
                                 <input type="text" id="rut" class="form-control required" maxlength="12" <?php echo $manage_mode ? "disabled" :"" ;?>/>
@@ -307,7 +307,7 @@
                                 </label>
                                 <input type="text" id="email" class="required form-control" maxlength="120"/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="notes" class="control-label">
                                     <?= lang('notes') ?>
                                 </label>
@@ -378,7 +378,7 @@
                                     </button>
                                 </h4>
                                 <img class="captcha-image" src="<?= site_url('captcha') ?>">
-                                <input class="captcha-text form-control" type="text" value=""/>
+                                <input class="captcha-text form-control" type="text" value="" placeholder="Escriba aquí el texto que ve en el captcha"/>
                                 <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
                             </div>
                         </div>

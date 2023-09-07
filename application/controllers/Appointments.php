@@ -296,7 +296,7 @@ class Appointments extends EA_Controller {
 
         $view = [
             'message_title' => lang('appointment_cancelled_title'),
-            'message_text' => lang('appointment_cancelled'),
+            'message_text' => '<p>Si lo requiere, podrá agendar una nueva hora, <a href="'.Config::BASE_URL.'">AQUÍ</a></p>', 
             'message_icon' => base_url('assets/img/success.png')
         ];
 

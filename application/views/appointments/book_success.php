@@ -28,13 +28,13 @@
                 <h3><?= lang('appointment_registered') ?></h3>
 
                 <p>
-                    <?= lang('appointment_details_was_sent_to_you') ?>
+                    <strong><?= lang('appointment_details_was_sent_to_you') ?></strong>
                 </p>
 
                 <p>
-                    <strong>
-                        <?= lang('check_spam_folder') ?>
-                    </strong>
+                    
+                <?= lang('check_spam_folder') ?>
+                    
                 </p>
 
                 <a href="<?= $add_to_google_url ?>" id="add-to-google-calendar" class="btn btn-primary" target="_blank">
