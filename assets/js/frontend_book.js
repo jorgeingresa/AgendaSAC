@@ -366,7 +366,6 @@ window.FrontendBook = window.FrontendBook || {};
              * @param {jQuery.Event} event
              */
             $('#cancel-appointment').on('click', function (event) {
-
                 var buttons = [
                     {
                         text: 'Cerrar',
@@ -377,18 +376,14 @@ window.FrontendBook = window.FrontendBook || {};
                     {
                         text: 'Confirmar',
                         click: function () {
-                            $('#cancel-reason').val('');
-                            if ($('#cancel-reason').val() === '') {
-                                $('#cancel-reason').css('border', '2px solid #DC3545');
-                                return;
-                            }
-                            $('#cancel-appointment-form textarea').val($('#cancel-reason').val());
+                            $('#cancel-appointment-form textarea').val('Anulada');
                             $('#cancel-appointment-form').submit();
                         }
                     }
                 ];
-                GeneralFunctions.displayMessageBox('Anular cita',
-                    ' ¿Desea Anular su cita?', buttons);
+
+                GeneralFunctions.displayMessageBox(EALang.cancel_appointment_title_box,
+                    EALang.write_appointment_removal_reason_box, buttons);
 
                 $('<textarea/>', {
                     'class': 'form-control',

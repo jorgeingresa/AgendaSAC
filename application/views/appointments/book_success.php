@@ -28,10 +28,6 @@
                 <h3><?= lang('appointment_registered') ?></h3>
 
                 <p>
-                    <strong><?= lang('appointment_details_was_sent_to_you') ?></strong>
-                </p>
-
-                <p>
                     
                 <?= lang('check_spam_folder') ?>
                     
